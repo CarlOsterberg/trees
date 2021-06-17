@@ -86,7 +86,7 @@ impl Tree {
             Tree::Null => Tree::Null,
         }
     }
-    fn is_balanced(self) -> bool {
+    pub fn is_balanced(self) -> bool {
         match self {
             Tree::Node(_,left,right) => 
                 ((left.depth()-right.depth()).abs() <= 1),
