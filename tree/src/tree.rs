@@ -44,7 +44,7 @@ impl Tree {
     fn join(self, tree:Tree) -> Tree {
         match self.clone() {
             Tree::Node(value, left, right) => {
-                if self.clone().get_value().unwrap() > value {
+                if tree.clone().get_value().unwrap() > value {
                     Tree::Node(value, left, Box::new(right.join(tree)))
                 }
                 else {
@@ -133,6 +133,40 @@ impl Tree {
         match self {
             Tree::Node(value,_,_) => Some(value),
             Tree::Null => None
+        }
+    }
+    pub fn inorder_walk(self) -> Vec<i32> {
+        match self {
+            Tree::Node(value,left,right) => {
+                let mut x = left.inorder_walk();
+                x.push(value);
+                x.append(&mut right.inorder_walk());
+                x
+            }
+            Tree::Null => {
+                vec![]
+            }
+        }
+    }
+    pub fn is_binary_tree(self) -> bool {
+        match self {
+            Tree::Node(value,left,right) => {
+                let l = left.clone().get_value();
+                let r = right.clone().get_value();
+                if l.is_some() && r.is_some() {
+                    l.unwrap() <= value && value <= r.unwrap() && left.is_binary_tree() && right.is_binary_tree()   
+                }
+                else if l.is_some() && r.is_none() {
+                    l.unwrap() <= value && left.is_binary_tree() && right.is_binary_tree()  
+                }
+                else if l.is_none() && r.is_some(){
+                    value <= r.unwrap() && left.is_binary_tree() && right.is_binary_tree()  
+                }
+                else {
+                    left.is_binary_tree() && right.is_binary_tree() 
+                }
+            }
+            Tree::Null => true
         }
     }
 }
