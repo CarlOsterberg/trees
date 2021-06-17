@@ -41,7 +41,7 @@ impl Tree {
             Tree::Null => Err("Node doesnt exist".to_string())
         }
     }
-    pub fn join(self, tree:Tree) -> Tree {
+    fn join(self, tree:Tree) -> Tree {
         match self.clone() {
             Tree::Node(value, left, right) => {
                 if self.clone().get_value().unwrap() > value {
@@ -54,7 +54,7 @@ impl Tree {
             Tree::Null => tree
         }
     }
-    pub fn left_shift(self) -> Tree {
+    fn left_shift(self) -> Tree {
         match self {
             Tree::Node(a,alpha,right) => {
                 let b = right.clone().get_value();
@@ -70,7 +70,7 @@ impl Tree {
             Tree::Null => Tree::Null,
         }
     }
-    pub fn right_shift(self) -> Tree {
+    fn right_shift(self) -> Tree {
         match self {
             Tree::Node(b,left,gamma) => {
                 let a = left.clone().get_value();
@@ -86,7 +86,7 @@ impl Tree {
             Tree::Null => Tree::Null,
         }
     }
-    pub fn is_balanced(self) -> bool {
+    fn is_balanced(self) -> bool {
         match self {
             Tree::Node(_,left,right) => 
                 ((left.depth()-right.depth()).abs() <= 1),
@@ -111,25 +111,25 @@ impl Tree {
             }
         }
     }
-    pub fn get_left(self) -> Option<Tree> {
+    fn get_left(self) -> Option<Tree> {
         match self {
             Tree::Node(_,left,_) => Some(*left),
             Tree::Null => None
         }
     }
-    pub fn get_right(self) -> Option<Tree> {
+    fn get_right(self) -> Option<Tree> {
         match self {
             Tree::Node(_,_,right) => Some(*right),
             Tree::Null => None
         }
     }
-    pub fn depth(self) -> i32 {
+    fn depth(self) -> i32 {
         match self {
             Tree::Null => 0,
             Tree::Node(_,left,right) => 1 + cmp::max(left.depth(), right.depth())
         }
     }
-    pub fn get_value(self) -> Option<i32> {
+    fn get_value(self) -> Option<i32> {
         match self {
             Tree::Node(value,_,_) => Some(value),
             Tree::Null => None
