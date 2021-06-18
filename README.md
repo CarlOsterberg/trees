@@ -4,3 +4,4 @@ Operations
 - insert
 - delete
 - inorder_walk
+- lookup

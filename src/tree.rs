@@ -169,6 +169,22 @@ impl Tree {
             Tree::Null => true
         }
     }
+    pub fn lookup(self, lookup:i32) -> Option<i32> {
+        match self {
+            Tree::Node(value,left,right) => {
+                if lookup == value {
+                    Some(value)
+                }
+                else if lookup < value {
+                    left.lookup(lookup)
+                }
+                else {
+                    right.lookup(lookup)
+                }
+            }
+            Tree::Null => None
+        }
+    }
 }
 impl fmt::Display for Tree {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
